@@ -11,7 +11,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
   <style>
-    /* Contact Page Specific Styles */
+    /* Contact Page — Light theme (matches volunteer page) */
+
     .contact-split-container {
       display: grid;
       grid-template-columns: 1fr 1.2fr;
@@ -20,35 +21,44 @@
       margin: 0 auto;
       padding: 140px var(--container-padding) 100px var(--container-padding);
       align-items: start;
+      background-color: var(--bg-main);
+      min-height: 100vh;
     }
 
+    /* Left panel — sticky info sidebar with subtle brand accent */
     .contact-info-panel {
       position: sticky;
       top: 120px;
+      padding: 40px;
+      background: linear-gradient(135deg, var(--bg-alt) 0%, var(--bg-section) 100%);
+      border-radius: 24px;
+      border: 1px solid var(--border-light);
     }
 
     .contact-channel-card {
-      background-color: var(--bg-dark-accent);
-      border: 1px solid rgba(255, 255, 255, 0.05);
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-light);
       border-radius: 16px;
-      padding: 30px;
-      margin-bottom: 20px;
+      padding: 24px 28px;
+      margin-bottom: 16px;
       display: flex;
-      gap: 20px;
+      gap: 18px;
       align-items: center;
       transition: var(--transition-ease);
+      box-shadow: var(--shadow-soft);
     }
 
     .contact-channel-card:hover {
       border-color: var(--primary);
       transform: translateY(-2px);
+      box-shadow: var(--shadow-hover);
     }
 
     .channel-icon {
       width: 50px;
       height: 50px;
       border-radius: 12px;
-      background-color: rgba(16, 185, 129, 0.1);
+      background-color: rgba(29, 158, 117, 0.08);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -57,7 +67,32 @@
       flex-shrink: 0;
     }
 
-    /* Glow field inputs container */
+    /* Right panel — form */
+    .contact-form-panel {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .contact-form-panel .section-label {
+      color: var(--primary);
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .contact-form-panel h1 {
+      font-family: var(--font-heading);
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      color: var(--text-dark);
+      margin-bottom: 36px;
+      line-height: 1.1;
+    }
+
+    /* Glow field — light theme */
     .glow-field {
       position: relative;
       margin-bottom: 24px;
@@ -73,10 +108,9 @@
       right: 0;
       bottom: 0;
       border-radius: 12px;
-      background: radial-gradient(100px circle at var(--mouse-x, 0px) var(--mouse-y, 0px), rgba(16, 185, 129, 0.15), transparent 80%);
+      background: radial-gradient(120px circle at var(--mouse-x, 0px) var(--mouse-y, 0px), rgba(29, 158, 117, 0.12), transparent 80%);
       pointer-events: none;
       z-index: 1;
-      border: 1px solid transparent;
       transition: opacity 0.3s;
       opacity: 0;
     }
@@ -87,45 +121,47 @@
 
     .form-input {
       width: 100%;
-      padding: 16px 20px;
-      background-color: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 14px 18px;
+      background-color: var(--bg-card);
+      border: 1.5px solid var(--border-light);
       border-radius: 12px;
-      color: var(--text-light);
+      color: var(--text-dark);
       font-size: 0.95rem;
       position: relative;
       z-index: 2;
       transition: var(--transition-ease);
+      font-family: var(--font-body);
     }
 
     .form-input:focus {
       border-color: var(--primary);
-      background-color: rgba(255, 255, 255, 0.05);
-      box-shadow: 0 0 10px var(--primary-glow);
+      outline: none;
+      box-shadow: 0 0 0 3px var(--primary-glow);
     }
 
     .form-label {
       position: absolute;
-      left: 20px;
+      left: 18px;
       top: 50%;
       transform: translateY(-50%);
-      color: var(--text-light-muted);
+      color: var(--text-medium);
       pointer-events: none;
       transition: var(--transition-ease);
-      font-size: 0.95rem;
+      font-size: 0.93rem;
       z-index: 2;
+      background: transparent;
     }
 
-    /* Floating label trigger states */
     .form-input:focus ~ .form-label,
     .form-input:not(:placeholder-shown) ~ .form-label {
       top: -10px;
-      left: 10px;
-      font-size: 0.75rem;
+      left: 12px;
+      font-size: 0.72rem;
       color: var(--primary);
-      background-color: var(--bg-dark-accent);
-      padding: 2px 8px;
+      background-color: var(--bg-card);
+      padding: 2px 6px;
       border-radius: 4px;
+      font-weight: 600;
       z-index: 3;
     }
 
@@ -135,7 +171,7 @@
     }
 
     textarea.form-input ~ .form-label {
-      top: 26px;
+      top: 20px;
     }
 
     textarea.form-input:focus ~ .form-label,
@@ -143,16 +179,17 @@
       top: -10px;
     }
 
-    /* Success state */
+    /* Success state — light theme */
     .success-container {
       display: none;
       flex-direction: column;
       align-items: center;
       text-align: center;
-      background-color: var(--bg-dark-accent);
-      border: 1px solid rgba(255, 255, 255, 0.05);
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-light);
       border-radius: 24px;
       padding: 60px 40px;
+      box-shadow: var(--shadow-soft);
     }
 
     .checkmark-circle {
@@ -163,10 +200,24 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 30px;
+      margin-bottom: 28px;
       color: var(--primary);
+      font-size: 2rem;
+      box-shadow: 0 0 24px var(--primary-glow);
+    }
+
+    .success-container h2 {
+      font-family: var(--font-heading);
       font-size: 2.2rem;
-      box-shadow: 0 0 20px var(--primary-glow);
+      color: var(--text-dark);
+      margin-bottom: 14px;
+    }
+
+    .success-container p {
+      color: var(--text-medium);
+      font-size: 1rem;
+      max-width: 440px;
+      margin: 0 auto 28px auto;
     }
 
     @media (max-width: 992px) {
@@ -189,8 +240,12 @@
         padding-bottom: 50px;
       }
 
+      .contact-info-panel {
+        padding: 24px 20px;
+      }
+
       .contact-channel-card {
-        padding: 22px 18px;
+        padding: 18px 16px;
         gap: 14px;
       }
 
@@ -199,10 +254,6 @@
         height: 42px;
         font-size: 1.1rem;
         flex-shrink: 0;
-      }
-
-      .contact-channel-card p {
-        font-size: 1rem !important;
       }
 
       .success-container {
@@ -260,8 +311,8 @@
     <!-- Left column: channels details -->
     <div class="contact-info-panel scroll-reveal">
       <span style="color: var(--primary); font-size: 0.85rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;">CONNECT WITH US</span>
-      <h1 class="hero-title" style="text-align: left; font-size: 3.5rem; margin: 15px 0 30px 0;">Let's synchronize coordinate plans.</h1>
-      <p style="opacity: 0.8; font-size: 1.05rem; margin-bottom: 40px;">Have questions about project audits, corporate sponsorships, or coordination centers? Our support teams are ready to connect.</p>
+      <h1 style="font-family: var(--font-heading); color: var(--text-dark); font-size: clamp(2rem, 3.5vw, 3rem); margin: 15px 0 30px 0; line-height: 1.1;">Let's synchronize coordinate plans.</h1>
+      <p style="color: var(--text-medium); font-size: 1.05rem; margin-bottom: 40px; line-height: 1.7;">Have questions about project audits, corporate sponsorships, or coordination centers? Our support teams are ready to connect.</p>
       
       <!-- Cards info -->
       <div class="contact-channel-card">
@@ -294,7 +345,9 @@
       
       <!-- Normal email compose panel -->
       <div class="contact-compose-wrap">
-        
+        <span class="section-label scroll-reveal">SEND A MESSAGE</span>
+        <h1 class="scroll-reveal" style="margin-bottom: 36px;">Drop us a line.</h1>
+
         <form id="contact-mail-form" class="stagger-group" onsubmit="submitContactForm(event)">
           
           <div class="glow-field stagger-item">
@@ -332,8 +385,8 @@
             <polyline class="success-check" points="20 6 9 17 4 12"></polyline>
           </svg>
         </div>
-        <h2 style="font-family: var(--font-heading); font-size: 2.5rem; margin-bottom: 15px;">Message Dispatched!</h2>
-        <p style="opacity: 0.8; max-width: 440px; margin: 0 auto 30px auto; font-size: 1.05rem;">We have encrypted and routed your message details to our administrative logs. Expect an official response from our team within 24 hours.</p>
+        <h2>Message Dispatched!</h2>
+        <p>We have encrypted and routed your message details to our administrative logs. Expect an official response from our team within 24 hours.</p>
         <a href="index.html" class="btn btn-outline">Back to Homepage</a>
       </div>
 
