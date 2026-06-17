@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AURA | Connect With Our Coordination Centers</title>
+  <meta name="description" content="Reach out to AURA headquarters. Find our global coordinates, coordinates emails, and submit feedback messages.">
+  
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    /* Contact Page Specific Styles */
+    .contact-split-container {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 6rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 140px var(--container-padding) 100px var(--container-padding);
+      align-items: start;
+    }
+
+    .contact-info-panel {
+      position: sticky;
+      top: 120px;
+    }
+
+    .contact-channel-card {
+      background-color: var(--bg-dark-accent);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      padding: 30px;
+      margin-bottom: 20px;
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      transition: var(--transition-ease);
+    }
+
+    .contact-channel-card:hover {
+      border-color: var(--primary);
+      transform: translateY(-2px);
+    }
+
+    .channel-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      background-color: rgba(16, 185, 129, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+
+    /* Glow field inputs container */
+    .glow-field {
+      position: relative;
+      margin-bottom: 24px;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .glow-field::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: 12px;
+      background: radial-gradient(100px circle at var(--mouse-x, 0px) var(--mouse-y, 0px), rgba(16, 185, 129, 0.15), transparent 80%);
+      pointer-events: none;
+      z-index: 1;
+      border: 1px solid transparent;
+      transition: opacity 0.3s;
+      opacity: 0;
+    }
+
+    .glow-field:hover::before, .glow-field:focus-within::before {
+      opacity: 1;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 16px 20px;
+      background-color: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      color: var(--text-light);
+      font-size: 0.95rem;
+      position: relative;
+      z-index: 2;
+      transition: var(--transition-ease);
+    }
+
+    .form-input:focus {
+      border-color: var(--primary);
+      background-color: rgba(255, 255, 255, 0.05);
+      box-shadow: 0 0 10px var(--primary-glow);
+    }
+
+    .form-label {
+      position: absolute;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-light-muted);
+      pointer-events: none;
+      transition: var(--transition-ease);
+      font-size: 0.95rem;
+      z-index: 2;
+    }
+
+    /* Floating label trigger states */
+    .form-input:focus ~ .form-label,
+    .form-input:not(:placeholder-shown) ~ .form-label {
+      top: -10px;
+      left: 10px;
+      font-size: 0.75rem;
+      color: var(--primary);
+      background-color: var(--bg-dark-accent);
+      padding: 2px 8px;
+      border-radius: 4px;
+      z-index: 3;
+    }
+
+    textarea.form-input {
+      min-height: 140px;
+      resize: none;
+    }
+
+    textarea.form-input ~ .form-label {
+      top: 26px;
+    }
+
+    textarea.form-input:focus ~ .form-label,
+    textarea.form-input:not(:placeholder-shown) ~ .form-label {
+      top: -10px;
+    }
+
+    /* Success state */
+    .success-container {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      background-color: var(--bg-dark-accent);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 24px;
+      padding: 60px 40px;
+    }
+
+    .checkmark-circle {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      border: 3px solid var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 30px;
+      color: var(--primary);
+      font-size: 2.2rem;
+      box-shadow: 0 0 20px var(--primary-glow);
+    }
+
+    @media (max-width: 992px) {
+      .contact-split-container {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+        padding-top: 110px;
+        padding-bottom: 60px;
+      }
+      
+      .contact-info-panel {
+        position: relative;
+        top: 0;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .contact-split-container {
+        padding-top: 90px;
+        padding-bottom: 50px;
+      }
+
+      .contact-channel-card {
+        padding: 22px 18px;
+        gap: 14px;
+      }
+
+      .channel-icon {
+        width: 42px;
+        height: 42px;
+        font-size: 1.1rem;
+        flex-shrink: 0;
+      }
+
+      .contact-channel-card p {
+        font-size: 1rem !important;
+      }
+
+      .success-container {
+        padding: 40px 20px;
+      }
+
+      .form-input {
+        padding: 14px 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Scroll Progress Bar -->
+  <div class="scroll-progress-container">
+    <div class="scroll-progress-bar"></div>
+  </div>
+
+  <!-- Custom Cursor -->
+  <div class="custom-cursor"></div>
+  <div class="custom-cursor-follower"></div>
+
+  <!-- Page Transition Wipe -->
+  <div class="page-transition-overlay"></div>
+
+  <!-- Header Navigation -->
+  <header class="main-header">
+    <a href="index.html" class="logo">AURA<span>.</span></a>
+    
+    <nav class="nav-menu">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="programs.html">Programs</a>
+      <a href="impact.html">Impact</a>
+      <a href="blog.html">Blog</a>
+      <a href="volunteer.html">Volunteer</a>
+      <a href="donate.html">Donate</a>
+      <a href="contact.html" class="active">Contact</a>
+    </nav>
+
+    <div class="nav-ctas">
+      <a href="donate.html" class="btn btn-outline">Donate Now</a>
+      <button class="mobile-toggle" aria-label="Toggle Navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Contact Split Container -->
+  <div class="contact-split-container">
+    
+    <!-- Left column: channels details -->
+    <div class="contact-info-panel scroll-reveal">
+      <span style="color: var(--primary); font-size: 0.85rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;">CONNECT WITH US</span>
+      <h1 class="hero-title" style="text-align: left; font-size: 3.5rem; margin: 15px 0 30px 0;">Let's synchronize coordinate plans.</h1>
+      <p style="opacity: 0.8; font-size: 1.05rem; margin-bottom: 40px;">Have questions about project audits, corporate sponsorships, or coordination centers? Our support teams are ready to connect.</p>
+      
+      <!-- Cards info -->
+      <div class="contact-channel-card">
+        <div class="channel-icon"><i class="fa-solid fa-envelope"></i></div>
+        <div>
+          <h4 style="font-size: 0.85rem; text-transform: uppercase; color: var(--primary); letter-spacing: 1px; margin-bottom: 4px;">General Mailbox</h4>
+          <p style="font-family: var(--font-heading); font-size: 1.15rem; font-weight: 700;">hello@aur NGO.org</p>
+        </div>
+      </div>
+
+      <div class="contact-channel-card">
+        <div class="channel-icon" style="color: var(--secondary); background-color: rgba(245, 158, 11, 0.1);"><i class="fa-solid fa-phone"></i></div>
+        <div>
+          <h4 style="font-size: 0.85rem; text-transform: uppercase; color: var(--secondary); letter-spacing: 1px; margin-bottom: 4px;">Coordination Office</h4>
+          <p style="font-family: var(--font-heading); font-size: 1.15rem; font-weight: 700;">+1 (206) 555-0190</p>
+        </div>
+      </div>
+
+      <div class="contact-channel-card">
+        <div class="channel-icon" style="color: var(--coral); background-color: rgba(244, 63, 94, 0.1);"><i class="fa-solid fa-location-dot"></i></div>
+        <div>
+          <h4 style="font-size: 0.85rem; text-transform: uppercase; color: var(--coral); letter-spacing: 1px; margin-bottom: 4px;">Main Center</h4>
+          <p style="font-family: var(--font-heading); font-size: 1.15rem; font-weight: 700;">Seattle, WA &bull; Coordinates Grid</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right column: Message Form -->
+    <div class="contact-form-panel">
+      
+      <!-- Normal email compose panel -->
+      <div class="contact-compose-wrap">
+        
+        <form id="contact-mail-form" class="stagger-group" onsubmit="submitContactForm(event)">
+          
+          <div class="glow-field stagger-item">
+            <input type="text" class="form-input" id="c-name" placeholder=" " required>
+            <label for="c-name" class="form-label">Your Name</label>
+          </div>
+
+          <div class="glow-field stagger-item">
+            <input type="email" class="form-input" id="c-email" placeholder=" " required>
+            <label for="c-email" class="form-label">Email Address</label>
+          </div>
+
+          <div class="glow-field stagger-item">
+            <input type="text" class="form-input" id="c-subject" placeholder=" " required>
+            <label for="c-subject" class="form-label">Message Subject</label>
+          </div>
+
+          <div class="glow-field stagger-item">
+            <textarea class="form-input" id="c-msg" placeholder=" " required></textarea>
+            <label for="c-msg" class="form-label">Compose Message Details</label>
+          </div>
+
+          <button type="submit" class="btn btn-primary stagger-item" style="width: 100%; border-radius: 12px; padding: 18px; font-size: 1rem;">
+            Send Secure Message <i class="fa-solid fa-paper-plane" style="margin-left: 8px;"></i>
+          </button>
+
+        </form>
+
+      </div>
+
+      <!-- Success Container -->
+      <div class="success-container">
+        <div class="checkmark-circle">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <polyline class="success-check" points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </div>
+        <h2 style="font-family: var(--font-heading); font-size: 2.5rem; margin-bottom: 15px;">Message Dispatched!</h2>
+        <p style="opacity: 0.8; max-width: 440px; margin: 0 auto 30px auto; font-size: 1.05rem;">We have encrypted and routed your message details to our administrative logs. Expect an official response from our team within 24 hours.</p>
+        <a href="index.html" class="btn btn-outline">Back to Homepage</a>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Shared Footer -->
+  <footer class="main-footer">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">AURA<span>.</span></a>
+        <p>A premium design-driven global NGO committed to re-stabilizing environment biodiversity and community infrastructure.</p>
+        <div class="footer-socials">
+          <a href="#" class="social-icon" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" class="social-icon" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+          <a href="#" class="social-icon" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" class="social-icon" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      
+      <div class="footer-links-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="programs.html">Programs</a></li>
+          <li><a href="impact.html">Impact Details</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-links-col">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="blog.html">Blog & Stories</a></li>
+          <li><a href="volunteer.html">Volunteer Sign Up</a></li>
+          <li><a href="donate.html">Donate Tiers</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-newsletter">
+        <h4>Newsletter</h4>
+        <p>Subscribe to receive quarterly photographic narratives from our field initiatives.</p>
+        <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Thank you for subscribing!');">
+          <input type="email" placeholder="Your Email Address" required>
+          <button type="submit" aria-label="Subscribe"><i class="fa-solid fa-paper-plane"></i></button>
+        </form>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2026 AURA Global Foundation. All rights reserved. Created with absolute craftsmanship.</p>
+      <p>Terms of Use | Privacy Policy</p>
+    </div>
+  </footer>
+
+  <!-- Script Libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script>
+  <script src="main.js"></script>
+  
+  <script>
+    // Cursor position tracker on input cards to trigger radial glows
+    document.addEventListener("DOMContentLoaded", () => {
+      const glowFields = document.querySelectorAll(".glow-field");
+      glowFields.forEach(field => {
+        field.addEventListener("mousemove", (e) => {
+          const rect = field.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          
+          field.style.setProperty("--mouse-x", `${x}px`);
+          field.style.setProperty("--mouse-y", `${y}px`);
+        });
+      });
+    });
+
+    // Form submission sequence
+    function submitContactForm(e) {
+      e.preventDefault();
+      
+      const composeWrap = document.querySelector(".contact-compose-wrap");
+      const successWrap = document.querySelector(".success-container");
+      const checkPath = document.querySelector(".success-check");
+      
+      gsap.to(composeWrap, {
+        opacity: 0,
+        y: -30,
+        duration: 0.5,
+        ease: "power2.in",
+        onComplete: () => {
+          composeWrap.style.display = "none";
+          successWrap.style.display = "flex";
+          
+          gsap.fromTo(successWrap,
+            { opacity: 0, y: 30 },
+            { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }
+          );
+          
+          if (checkPath) {
+            const length = checkPath.getTotalLength();
+            gsap.set(checkPath, { strokeDasharray: length, strokeDashoffset: length });
+            gsap.to(checkPath, {
+              strokeDashoffset: 0,
+              duration: 0.8,
+              delay: 0.2,
+              ease: "power2.out"
+            });
+          }
+        }
+      });
+    }
+  </script>
+</body>
+</html>

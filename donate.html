@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AURA | Support Our Programs</title>
+  <meta name="description" content="Contribute to AURA. Every donation finances water networks, tree planting, and local youth education directly.">
+  
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    /* Donate specific styles */
+    .donate-container {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 140px var(--container-padding) 100px var(--container-padding);
+      align-items: start;
+    }
+
+    .donate-visual-panel {
+      position: sticky;
+      top: 120px;
+    }
+
+    .target-box {
+      background-color: var(--bg-cream-accent);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      border-radius: 20px;
+      padding: 40px;
+      margin-top: 30px;
+    }
+
+    .target-numbers {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 15px;
+      font-family: var(--font-heading);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+
+    .target-progress-track {
+      width: 100%;
+      height: 10px;
+      background-color: rgba(0, 0, 0, 0.05);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 15px;
+    }
+
+    .target-progress-fill {
+      height: 100%;
+      width: 0%; /* Animated to 82% */
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      border-radius: 10px;
+      box-shadow: 0 0 8px rgba(16, 185, 129, 0.3);
+    }
+
+    /* Tiers Selector Grid */
+    .tiers-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .tier-btn {
+      background-color: var(--bg-cream-accent);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      border-radius: 12px;
+      padding: 18px 10px;
+      font-family: var(--font-heading);
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--text-dark);
+      cursor: pointer;
+      transition: var(--transition-ease);
+      text-align: center;
+    }
+
+    .tier-btn.active, .tier-btn:hover {
+      background-color: var(--coral);
+      border-color: var(--coral);
+      color: var(--text-light);
+      box-shadow: 0 5px 15px var(--coral-glow);
+      transform: translateY(-2px);
+    }
+
+    .custom-amount-wrapper {
+      position: relative;
+      margin-bottom: 30px;
+    }
+
+    .custom-amount-input {
+      width: 100%;
+      padding: 16px 20px 16px 40px;
+      background-color: var(--bg-cream-accent);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      border-radius: 12px;
+      color: var(--text-dark);
+      font-size: 1.1rem;
+      font-weight: 600;
+      transition: var(--transition-ease);
+    }
+
+    .custom-amount-input:focus {
+      border-color: var(--coral);
+      background-color: var(--bg-cream);
+      box-shadow: 0 0 10px var(--coral-glow);
+    }
+
+    .currency-symbol {
+      position: absolute;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-dark-muted);
+      pointer-events: none;
+    }
+
+    .donate-impact-summary {
+      background-color: rgba(16, 185, 129, 0.05);
+      border-left: 4px solid var(--primary);
+      padding: 20px 24px;
+      border-radius: 0 12px 12px 0;
+      font-size: 1rem;
+      line-height: 1.5;
+      color: var(--text-dark);
+      margin-bottom: 30px;
+    }
+
+    /* Interactive Inputs */
+    .form-group {
+      position: relative;
+      margin-bottom: 24px;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 14px 18px;
+      background-color: var(--bg-cream-accent);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      border-radius: 12px;
+      color: var(--text-dark);
+      font-size: 0.95rem;
+      transition: var(--transition-ease);
+    }
+
+    .form-input:focus {
+      border-color: var(--primary);
+      background-color: var(--bg-cream);
+      box-shadow: 0 0 10px var(--primary-glow);
+    }
+
+    .form-label {
+      position: absolute;
+      left: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-dark-muted);
+      pointer-events: none;
+      transition: var(--transition-ease);
+      font-size: 0.95rem;
+    }
+
+    .form-input:focus ~ .form-label,
+    .form-input:not(:placeholder-shown) ~ .form-label {
+      top: -10px;
+      left: 10px;
+      font-size: 0.75rem;
+      color: var(--primary);
+      background-color: var(--bg-cream);
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    /* Success payment sequence */
+    .payment-success-wrapper {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      background-color: var(--bg-cream-accent);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      border-radius: 24px;
+      padding: 60px 40px;
+    }
+
+    .heart-pulse-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background-color: var(--coral-glow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 30px;
+      color: var(--coral);
+      font-size: 2.2rem;
+      animation: heartbeat 1.5s infinite;
+    }
+
+    @keyframes heartbeat {
+      0% { transform: scale(1); }
+      15% { transform: scale(1.15); }
+      30% { transform: scale(1); }
+      45% { transform: scale(1.15); }
+      60% { transform: scale(1); }
+      100% { transform: scale(1); }
+    }
+
+    @media (max-width: 992px) {
+      .donate-container {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+        padding-top: 110px;
+        padding-bottom: 60px;
+      }
+      
+      .donate-visual-panel {
+        position: relative;
+        top: 0;
+      }
+
+      .tiers-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    @media (max-width: 576px) {
+      .donate-container {
+        padding-top: 90px;
+        padding-bottom: 50px;
+      }
+
+      .tiers-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .target-box {
+        padding: 28px 20px;
+      }
+
+      .target-numbers {
+        font-size: 1rem;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .donate-impact-summary {
+        font-size: 0.9rem;
+        padding: 16px 18px;
+      }
+
+      .payment-success-wrapper {
+        padding: 40px 24px;
+      }
+    }
+  </style>
+</head>
+<body class="light-theme">
+
+  <!-- Scroll Progress Bar -->
+  <div class="scroll-progress-container">
+    <div class="scroll-progress-bar"></div>
+  </div>
+
+  <!-- Custom Cursor -->
+  <div class="custom-cursor"></div>
+  <div class="custom-cursor-follower"></div>
+
+  <!-- Page Transition Wipe -->
+  <div class="page-transition-overlay"></div>
+
+  <!-- Header Navigation -->
+  <header class="main-header">
+    <a href="index.html" class="logo">AURA<span>.</span></a>
+    
+    <nav class="nav-menu">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="programs.html">Programs</a>
+      <a href="impact.html">Impact</a>
+      <a href="blog.html">Blog</a>
+      <a href="volunteer.html">Volunteer</a>
+      <a href="donate.html" class="active">Donate</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+
+    <div class="nav-ctas">
+      <a href="donate.html" class="btn btn-outline">Donate Now</a>
+      <button class="mobile-toggle" aria-label="Toggle Navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Grid Layout -->
+  <div class="donate-container">
+    
+    <!-- Left column: Visual collage + live goals tracker -->
+    <div class="donate-visual-panel scroll-reveal">
+      <span style="color: var(--primary); font-size: 0.85rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;">INVEST IN EQUILIBRIUM</span>
+      <h1 class="hero-title" style="text-align: left; font-size: 3.2rem; color: var(--text-dark); margin: 15px 0 20px 0;">Seed the future.</h1>
+      <p style="color: var(--text-dark-muted); font-size: 1.05rem;">We pledge audited financial accounting. 100% of community contributions go directly towards field materials, saplings, filtration parts, and regional school supplies.</p>
+      
+      <!-- Live target tracker -->
+      <div class="target-box">
+        <div class="target-numbers">
+          <span>Target: $100,000</span>
+          <span style="color: var(--primary);">82% Completed</span>
+        </div>
+        <div class="target-progress-track">
+          <div class="target-progress-fill" data-percent="82%"></div>
+        </div>
+        <p style="font-size: 0.85rem; color: var(--text-dark-muted); margin: 0;"><i class="fa-solid fa-fire" style="color: var(--secondary); margin-right: 6px;"></i> 1,420 community members contributed this quarter to reach $82,450.</p>
+      </div>
+    </div>
+
+    <!-- Right column: Amount selectors & card details form -->
+    <div class="donate-form-panel">
+      
+      <!-- Normal payment flow container -->
+      <div class="donate-flow-wrap">
+        
+        <div class="stagger-group">
+          
+          <h3 style="font-family: var(--font-heading); font-size: 1.5rem; color: var(--text-dark); margin-bottom: 15px;" class="stagger-item">Select Donation Amount</h3>
+          
+          <!-- Tiers selector -->
+          <div class="tiers-grid stagger-item">
+            <button class="tier-btn active" data-amount="25">$25</button>
+            <button class="tier-btn" data-amount="50">$50</button>
+            <button class="tier-btn" data-amount="100">$100</button>
+            <button class="tier-btn" data-amount="250">$250</button>
+          </div>
+
+          <!-- Custom amount input -->
+          <div class="custom-amount-wrapper stagger-item">
+            <span class="currency-symbol">$</span>
+            <input type="number" class="custom-amount-input" placeholder="Or enter custom amount" min="5">
+          </div>
+
+          <!-- Dynamic impact statement box -->
+          <div class="donate-impact-summary stagger-item">
+            Your donation of <strong>$25</strong> feeds a refugee child for two full weeks, providing vital nutrition and vitamins.
+          </div>
+
+          <!-- Card/Billing Form -->
+          <h3 style="font-family: var(--font-heading); font-size: 1.5rem; color: var(--text-dark); margin-bottom: 20px; border-top: 1px solid rgba(0,0,0,0.08); padding-top: 30px;" class="stagger-item">Billing & Details</h3>
+
+          <form id="donation-card-form" onsubmit="processDonation(event)">
+            
+            <div class="form-group stagger-item">
+              <input type="text" class="form-input" id="d-name" placeholder=" " required>
+              <label for="d-name" class="form-label">Full Name on Card</label>
+            </div>
+
+            <div class="form-group stagger-item">
+              <input type="text" class="form-input" id="d-card" placeholder=" " pattern="[0-9 ]{12,19}" required>
+              <label for="d-card" class="form-label">Card Number (16 Digits)</label>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;" class="stagger-item">
+              <div class="form-group">
+                <input type="text" class="form-input" id="d-exp" placeholder=" " pattern="(0[1-9]|1[0-2])\/[0-9]{2}" required>
+                <label for="d-exp" class="form-label">Expiry (MM/YY)</label>
+              </div>
+              <div class="form-group">
+                <input type="password" class="form-input" id="d-cvc" placeholder=" " pattern="[0-9]{3,4}" required>
+                <label for="d-cvc" class="form-label">CVC (3 Digits)</label>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-coral stagger-item" style="width: 100%; border-radius: 12px; padding: 18px; font-size: 1rem; margin-top: 10px;">
+              Complete Financial Gift <i class="fa-solid fa-heart" style="margin-left: 8px;"></i>
+            </button>
+          </form>
+
+        </div>
+
+      </div>
+
+      <!-- Success Container -->
+      <div class="payment-success-wrapper">
+        <div class="heart-pulse-icon">
+          <i class="fa-solid fa-heart"></i>
+        </div>
+        <h2 style="font-family: var(--font-heading); font-size: 2.5rem; color: var(--text-dark); margin-bottom: 15px;">Thank you for your warmth!</h2>
+        <p style="opacity: 0.8; max-width: 440px; margin: 0 auto 30px auto; font-size: 1.05rem; color: var(--text-dark-muted);">We have processed your transaction securely. A certificate of contribution audit alongside a tax exemption draft is on its way to your email.</p>
+        <a href="index.html" class="btn btn-outline">Return to Home</a>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Shared Footer -->
+  <footer class="main-footer" style="border-top: 1px solid rgba(0, 0, 0, 0.05);">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">AURA<span>.</span></a>
+        <p>A premium design-driven global NGO committed to re-stabilizing environment biodiversity and community infrastructure.</p>
+        <div class="footer-socials">
+          <a href="#" class="social-icon" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" class="social-icon" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+          <a href="#" class="social-icon" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" class="social-icon" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      
+      <div class="footer-links-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="programs.html">Programs</a></li>
+          <li><a href="impact.html">Impact Details</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-links-col">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="blog.html">Blog & Stories</a></li>
+          <li><a href="volunteer.html">Volunteer Sign Up</a></li>
+          <li><a href="donate.html">Donate Tiers</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-newsletter">
+        <h4>Newsletter</h4>
+        <p>Subscribe to receive quarterly photographic narratives from our field initiatives.</p>
+        <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Thank you for subscribing!');">
+          <input type="email" placeholder="Your Email Address" required>
+          <button type="submit" aria-label="Subscribe"><i class="fa-solid fa-paper-plane"></i></button>
+        </form>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2026 AURA Global Foundation. All rights reserved. Created with absolute craftsmanship.</p>
+      <p>Terms of Use | Privacy Policy</p>
+    </div>
+  </footer>
+
+  <!-- Script Libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script>
+  <script src="main.js"></script>
+  
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Initialize shared Donate calculations logic declared globally in main.js
+      if (typeof window.setupDonateForm === "function") {
+        window.setupDonateForm();
+      }
+
+      // Animate funding goal progress bar
+      const progressFill = document.querySelector(".target-progress-fill");
+      if (progressFill) {
+        const targetWidth = progressFill.getAttribute("data-percent") || "0%";
+        gsap.to(progressFill, {
+          width: targetWidth,
+          duration: 1.8,
+          ease: "power4.out",
+          delay: 0.5
+        });
+      }
+    });
+
+    // Handle Payment Submission
+    function processDonation(e) {
+      e.preventDefault();
+      
+      const flowWrap = document.querySelector(".donate-flow-wrap");
+      const successWrap = document.querySelector(".payment-success-wrapper");
+      
+      gsap.to(flowWrap, {
+        opacity: 0,
+        y: -30,
+        duration: 0.5,
+        ease: "power2.in",
+        onComplete: () => {
+          flowWrap.style.display = "none";
+          successWrap.style.display = "flex";
+          
+          gsap.fromTo(successWrap,
+            { opacity: 0, y: 30 },
+            { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }
+          );
+        }
+      });
+    }
+  </script>
+</body>
+</html>

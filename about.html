@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AURA | Our Story & Vision</title>
+  <meta name="description" content="Discover Aura's historical milestones, leadership vision, and deep commitment to sustainable environmental and educational systems.">
+  
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    /* ── About page responsive overrides ── */
+
+    /* Story section: 2-col grid → single col on tablet */
+    @media (max-width: 992px) {
+      .story-layout-container {
+        grid-template-columns: 1fr !important;
+        gap: 3rem !important;
+      }
+
+      /* Un-stick the collage so it scrolls naturally */
+      .pinned-collage-wrapper {
+        position: static !important;
+        height: auto !important;
+        grid-template-columns: 1fr 1fr !important;
+      }
+
+      /* Timeline: collapse to single column */
+      .milestone-row {
+        grid-template-columns: 1fr !important;
+        gap: 2rem !important;
+        margin-bottom: 60px !important;
+      }
+
+      /* Remove left-aligned text-right on small screens */
+      .milestone-text-right {
+        text-align: left !important;
+      }
+
+      .milestone-text-right p {
+        margin-left: 0 !important;
+      }
+
+      .milestone-img-right {
+        justify-content: flex-start !important;
+      }
+
+      /* Hide centre SVG line & node dots */
+      .timeline-svg-line,
+      .timeline-node-dot {
+        display: none !important;
+      }
+
+      /* Milestone images: full width on mobile */
+      .milestone-row > div > div[style*="width: 280px"] {
+        width: 100% !important;
+        height: 200px !important;
+        max-width: 100% !important;
+      }
+    }
+
+    /* Collage: stack to single column on small mobile */
+    @media (max-width: 576px) {
+      .pinned-collage-wrapper {
+        grid-template-columns: 1fr !important;
+      }
+
+      .collage-col-left,
+      .collage-col-right {
+        grid-column: auto !important;
+      }
+
+      /* Trim tall collage images to reasonable heights */
+      .collage-img-tall {
+        height: 200px !important;
+      }
+
+      .collage-badge {
+        height: auto !important;
+        min-height: 100px !important;
+      }
+
+      /* Section padding reduction */
+      #story-narrative {
+        padding-top: 80px !important;
+        padding-bottom: 60px !important;
+      }
+
+      /* Year numbers in timeline */
+      .milestone-row span[style*="font-size: 3rem"] {
+        font-size: 2rem !important;
+      }
+    }
+  </style>
+</head>
+<body class="light-theme">
+
+  <!-- Scroll Progress Bar -->
+  <div class="scroll-progress-container">
+    <div class="scroll-progress-bar"></div>
+  </div>
+
+  <!-- Awwwards-style Custom Cursor -->
+  <div class="custom-cursor"></div>
+  <div class="custom-cursor-follower"></div>
+
+  <!-- Page Transition Wipe Overlay -->
+  <div class="page-transition-overlay"></div>
+
+  <!-- Header Navigation -->
+  <header class="main-header">
+    <a href="index.html" class="logo">AURA<span>.</span></a>
+    
+    <nav class="nav-menu">
+      <a href="index.html">Home</a>
+      <a href="about.html" class="active">About</a>
+      <a href="programs.html">Programs</a>
+      <a href="impact.html">Impact</a>
+      <a href="blog.html">Blog</a>
+      <a href="volunteer.html">Volunteer</a>
+      <a href="donate.html">Donate</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+
+    <div class="nav-ctas">
+      <a href="donate.html" class="btn btn-outline">Donate Now</a>
+      <button class="mobile-toggle" aria-label="Toggle Navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero Section (Light Canvas) -->
+  <section class="hero-wrapper" id="about-hero">
+    <div class="floating-shapes-container">
+      <div class="floating-shape shape-1" style="background-color: var(--primary); opacity: 0.05;" data-speed="0.85"></div>
+      <div class="floating-shape shape-3" style="background-color: var(--secondary); opacity: 0.05;" data-speed="1.1"></div>
+    </div>
+    
+    <div class="hero-bg-media">
+      <img src="https://images.unsplash.com/photo-1559027615-cd4628902d4a?auto=format&fit=crop&w=1920&q=80" alt="Volunteers working in nature" style="opacity: 0.15;">
+    </div>
+
+    <div class="hero-content" style="color: var(--text-dark);">
+      <span class="hero-subtitle scroll-reveal">BEHIND THE MOVEMENT</span>
+      <h1 class="hero-title split-text" style="color: var(--text-dark);">THE ARCHITECTS OF BALANCE.</h1>
+      <p class="hero-description scroll-reveal" style="color: var(--text-dark-muted);">We believe that human empowerment and planetary restoration are intrinsically bound. Our purpose is to design self-sustaining systems that bridge both.</p>
+      <div class="hero-buttons scroll-reveal">
+        <a href="#story-narrative" class="btn btn-primary">Read Our Story <i class="fa-solid fa-arrow-down" style="margin-left: 8px;"></i></a>
+        <a href="volunteer.html" class="btn btn-outline">Join Our Network</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pinned Story Section -->
+  <section id="story-narrative" style="padding: 140px var(--container-padding); background-color: var(--bg-cream); position: relative;">
+    <div class="story-layout-container" style="display: grid; grid-template-columns: 1fr 1.2fr; gap: 6rem; max-width: 1200px; margin: 0 auto; align-items: start;">
+      
+      <!-- Left Column: Pinned Collage Container -->
+      <div class="pinned-collage-wrapper" style="position: sticky; top: 120px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; height: 500px;">
+        <div class="collage-col-left" style="grid-column: 1 / 2; display: flex; flex-direction: column; gap: 1.5rem;">
+          <div class="scroll-reveal collage-img-tall" data-speed="0.9" style="height: 280px; border-radius: 16px; overflow: hidden; box-shadow: 0 15px 30px rgba(0,0,0,0.15);">
+            <img src="https://images.unsplash.com/photo-1489641499538-be02c22500a1?auto=format&fit=crop&w=600&q=80" alt="Planting forest trees" style="width: 100%; height: 100%; object-fit: cover;">
+          </div>
+          <div class="scroll-reveal collage-badge" data-speed="1.15" style="height: 180px; border-radius: 16px; overflow: hidden; box-shadow: 0 15px 30px rgba(0,0,0,0.15); background-color: var(--primary-hover); display: flex; align-items: center; justify-content: center; padding: 24px; color: var(--text-light); text-align: center;">
+            <p style="font-family: var(--font-heading); font-size: 1.15rem; font-weight: 700; line-height: 1.3;">10+ Years of Groundwork</p>
+          </div>
+        </div>
+        
+        <div class="collage-col-right" style="grid-column: 2 / 3; display: flex; flex-direction: column; gap: 1.5rem; justify-content: center;">
+          <div class="scroll-reveal collage-img-tall" data-speed="1.05" style="height: 380px; border-radius: 16px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.2);">
+            <img src="https://images.unsplash.com/photo-1469571486040-75108013c98f?auto=format&fit=crop&w=600&q=80" alt="Children drawing water from new well" style="width: 100%; height: 100%; object-fit: cover;">
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Scrolling Narrative Texts -->
+      <div style="display: flex; flex-direction: column; gap: 5rem;">
+        
+        <div class="scroll-reveal">
+          <span style="color: var(--primary); font-size: 0.85rem; font-weight: 700; letter-spacing: 2px;">THE SPARK</span>
+          <h3 style="font-family: var(--font-heading); font-size: 2.2rem; margin: 12px 0 18px 0; color: var(--text-dark);">It began with a drying well and a barren field.</h3>
+          <p style="color: var(--text-dark-muted); font-size: 1.05rem;">In 2015, our founders traveled to sub-Saharan agricultural zones witnessing how ecological decay directly collapsed family livelihoods. Re-planting trees wasn't just about environment; it restored the rain, filled the wells, and kept children in school. We realized that environmental restoration is the root of human dignity.</p>
+        </div>
+
+        <div class="scroll-reveal">
+          <span style="color: var(--primary); font-size: 0.85rem; font-weight: 700; letter-spacing: 2px;">OUR STRATEGY</span>
+          <h3 style="font-family: var(--font-heading); font-size: 2.2rem; margin: 12px 0 18px 0; color: var(--text-dark);">Autonomous communities.</h3>
+          <p style="color: var(--text-dark-muted); font-size: 1.05rem;">Instead of shipping temporary aid, we build structural, community-owned pipelines. Our water systems, micro-forest management grids, and training classrooms are maintained entirely by local councils whom we support with resources, tools, and technical blueprints.</p>
+        </div>
+
+        <div class="scroll-reveal">
+          <span style="color: var(--primary); font-size: 0.85rem; font-weight: 700; letter-spacing: 2px;">THE ROAD AHEAD</span>
+          <h3 style="font-family: var(--font-heading); font-size: 2.2rem; margin: 12px 0 18px 0; color: var(--text-dark);">Scaling balance across hemispheres.</h3>
+          <p style="color: var(--text-dark-muted); font-size: 1.05rem;">By 2030, we aim to expand our models to over 150 administrative districts. Our programs are designed to scale smoothly, creating a blueprint that any remote community can replicate to withstand global environmental stress.</p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Interactive SVG Path Drawing Timeline Section -->
+  <section style="padding: 120px var(--container-padding); background-color: var(--bg-dark); color: var(--text-light); position: relative; overflow: hidden;">
+    <div style="text-align: center; max-width: 600px; margin: 0 auto 80px auto;" class="scroll-reveal">
+      <span style="color: var(--primary); font-size: 0.85rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;">HISTORICAL MILESTONES</span>
+      <h2 style="font-family: var(--font-heading); font-size: 3.2rem; line-height: 1.1; margin: 16px 0;">A decade of planting seeds.</h2>
+      <p style="opacity: 0.75;">Scroll to witness the trajectory of our footprint across continents.</p>
+    </div>
+
+    <!-- Timeline Wrapper -->
+    <div style="position: relative; max-width: 1000px; margin: 0 auto; padding: 40px 0;">
+      
+      <!-- Central Pinned Line -->
+      <div class="timeline-svg-line" style="position: absolute; left: 50%; top: 0; bottom: 0; width: 4px; transform: translateX(-50%); background-color: rgba(255,255,255,0.05); z-index: 1;"></div>
+      
+      <!-- Interactive SVG Drawing Path -->
+      <svg class="timeline-svg-line" style="position: absolute; left: 50%; top: 0; height: 100%; width: 4px; transform: translateX(-50%); z-index: 2;" preserveAspectRatio="none" viewBox="0 0 4 1000">
+        <path class="svg-draw-path" d="M2 0 L2 1000" stroke="var(--primary)" stroke-width="4" fill="none"/>
+      </svg>
+
+      <!-- Milestone 1 -->
+      <div class="milestone-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; position: relative; margin-bottom: 120px;" class="scroll-reveal">
+        <div class="milestone-text-right" style="text-align: right; display: flex; flex-direction: column; justify-content: center;">
+          <span style="font-family: var(--font-heading); font-size: 3rem; color: var(--primary); font-weight: 800;">2016</span>
+          <h3 style="font-size: 1.4rem; margin: 8px 0;">Inception & First Well</h3>
+          <p style="opacity: 0.7; font-size: 0.95rem; max-width: 400px; margin-left: auto;">Founded in Seattle with a grassroots team of 4 coordinators. Successfully built our first community well in Turkana, Kenya, supporting 1,500 villagers.</p>
+        </div>
+        <div style="display: flex; align-items: center; justify-content: flex-start; position: relative;">
+          <!-- Node Dot -->
+          <div class="timeline-node-dot" style="position: absolute; left: -2.3rem; width: 14px; height: 14px; background-color: var(--primary); border: 3px solid var(--bg-dark); border-radius: 50%; z-index: 3;"></div>
+          <div style="width: 280px; height: 180px; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.3);">
+            <img src="https://images.unsplash.com/photo-1541913079-50948cd8a0f0?auto=format&fit=crop&w=400&q=80" alt="2016 Milestone image" style="width: 100%; height: 100%; object-fit: cover;">
+          </div>
+        </div>
+      </div>
+
+      <!-- Milestone 2 -->
+      <div class="milestone-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; position: relative; margin-bottom: 120px;" class="scroll-reveal">
+        <div class="milestone-img-right" style="display: flex; align-items: center; justify-content: flex-end; position: relative; text-align: right;">
+          <div style="width: 280px; height: 180px; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.3);">
+            <img src="https://images.unsplash.com/photo-1530587191325-3db32d826c18?auto=format&fit=crop&w=400&q=80" alt="2019 Milestone image" style="width: 100%; height: 100%; object-fit: cover;">
+          </div>
+          <!-- Node Dot -->
+          <div class="timeline-node-dot" style="position: absolute; right: -2.3rem; width: 14px; height: 14px; background-color: var(--secondary); border: 3px solid var(--bg-dark); border-radius: 50%; z-index: 3;"></div>
+        </div>
+        <div style="text-align: left; display: flex; flex-direction: column; justify-content: center;">
+          <span style="font-family: var(--font-heading); font-size: 3rem; color: var(--secondary); font-weight: 800;">2019</span>
+          <h3 style="font-size: 1.4rem; margin: 8px 0;">Green Buffer Forests</h3>
+          <p style="opacity: 0.7; font-size: 0.95rem; max-width: 400px;">Launched reforestation targets across Southeast Asian watersheds, planting 50,000 native timber saplings with school volunteers.</p>
+        </div>
+      </div>
+
+      <!-- Milestone 3 -->
+      <div class="milestone-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; position: relative;" class="scroll-reveal">
+        <div class="milestone-text-right" style="text-align: right; display: flex; flex-direction: column; justify-content: center;">
+          <span style="font-family: var(--font-heading); font-size: 3rem; color: var(--coral); font-weight: 800;">2024</span>
+          <h3 style="font-size: 1.4rem; margin: 8px 0;">Pan-Global Network</h3>
+          <p style="opacity: 0.7; font-size: 0.95rem; max-width: 400px; margin-left: auto;">Secured international partnerships supporting 8 program districts. Installed micro-water plants and classrooms catering to 100K+ community members.</p>
+        </div>
+        <div style="display: flex; align-items: center; justify-content: flex-start; position: relative;">
+          <!-- Node Dot -->
+          <div class="timeline-node-dot" style="position: absolute; left: -2.3rem; width: 14px; height: 14px; background-color: var(--coral); border: 3px solid var(--bg-dark); border-radius: 50%; z-index: 3;"></div>
+          <div style="width: 280px; height: 180px; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.3);">
+            <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=400&q=80" alt="2024 Milestone image" style="width: 100%; height: 100%; object-fit: cover;">
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Global CTA Section -->
+  <section class="global-cta-section" style="background-color: var(--bg-dark);">
+    <div class="cta-card scroll-reveal">
+      <div class="cta-content">
+        <span class="cta-tag">GET INVOLVED</span>
+        <h2 class="cta-title">Be the catalyst for sustainable change.</h2>
+        <p class="cta-desc">Every donation planted, every classroom constructed, and every forest restored begins with a single step. Join us as a champion or sponsor.</p>
+      </div>
+      <div class="cta-actions">
+        <a href="volunteer.html" class="btn btn-outline">Join As Volunteer</a>
+        <a href="donate.html" class="btn btn-primary">Support Financially <i class="fa-solid fa-arrow-trend-up" style="margin-left: 8px;"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Shared Footer -->
+  <footer class="main-footer" style="background-color: var(--bg-dark); color: var(--text-light);">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">AURA<span>.</span></a>
+        <p>A premium design-driven global NGO committed to re-stabilizing environment biodiversity and community infrastructure.</p>
+        <div class="footer-socials">
+          <a href="#" class="social-icon" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" class="social-icon" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+          <a href="#" class="social-icon" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" class="social-icon" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      
+      <div class="footer-links-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="programs.html">Programs</a></li>
+          <li><a href="impact.html">Impact Details</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-links-col">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="blog.html">Blog & Stories</a></li>
+          <li><a href="volunteer.html">Volunteer Sign Up</a></li>
+          <li><a href="donate.html">Donate Tiers</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-newsletter">
+        <h4>Newsletter</h4>
+        <p>Subscribe to receive quarterly photographic narratives from our field initiatives.</p>
+        <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Thank you for subscribing!');">
+          <input type="email" placeholder="Your Email Address" required>
+          <button type="submit" aria-label="Subscribe"><i class="fa-solid fa-paper-plane"></i></button>
+        </form>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2026 AURA Global Foundation. All rights reserved. Created with absolute craftsmanship.</p>
+      <p>Terms of Use | Privacy Policy</p>
+    </div>
+  </footer>
+
+  <!-- Script Libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>

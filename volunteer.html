@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AURA | Join Us As a Volunteer</title>
+  <meta name="description" content="Apply to join our global network of field coordinators and community builders. Put your skills to work.">
+  
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    /* ── Volunteer page — warm light palette ── */
+
+    /* Navbar override — sits over dark image panel */
+    .dark-nav {
+      background-color: transparent;
+    }
+
+    .dark-nav .logo,
+    .dark-nav nav.nav-menu a {
+      color: var(--text-light) !important;
+    }
+
+    .dark-nav nav.nav-menu a {
+      opacity: 0.85;
+    }
+
+    .dark-nav nav.nav-menu a:hover,
+    .dark-nav nav.nav-menu a.active {
+      opacity: 1;
+      color: var(--text-light) !important;
+    }
+
+    .dark-nav .logo span {
+      color: var(--secondary);
+    }
+
+    .dark-nav .btn-outline {
+      border-color: rgba(255, 255, 255, 0.4);
+      color: var(--text-light);
+    }
+
+    .dark-nav .btn-outline:hover {
+      background-color: var(--text-light);
+      color: var(--text-dark);
+      border-color: var(--text-light);
+    }
+
+    .dark-nav .mobile-toggle span {
+      background-color: var(--text-light);
+    }
+
+    .dark-nav.scrolled {
+      background-color: rgba(30, 42, 56, 0.92) !important;
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .volunteer-split-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    /* Left: image panel with dark overlay */
+    .volunteer-visual-panel {
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 60px;
+      background-color: var(--bg-dark);
+    }
+
+    .volunteer-visual-panel img {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      opacity: 0.40;
+      transition: transform 10s ease;
+    }
+
+    .volunteer-visual-panel:hover img {
+      transform: scale(1.06);
+    }
+
+    .volunteer-visual-panel::after {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: linear-gradient(to right, rgba(30, 42, 56, 0.3) 0%, var(--bg-dark) 100%);
+    }
+
+    /* Right: form panel — warm light */
+    .volunteer-form-panel {
+      padding: calc(var(--header-height) + 60px) 10% 80px 10%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background-color: var(--bg-main);
+      border-left: 1px solid var(--border-light);
+      position: relative;
+    }
+
+    .volunteer-form-panel .section-label {
+      color: var(--primary);
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .volunteer-form-panel h1 {
+      font-family: var(--font-heading);
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      color: var(--text-dark);
+      margin-bottom: 36px;
+      line-height: 1.1;
+    }
+
+    /* Form inputs — light theme */
+    .form-group {
+      position: relative;
+      margin-bottom: 24px;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 14px 18px;
+      background-color: var(--bg-card);
+      border: 1.5px solid var(--border-light);
+      border-radius: 10px;
+      color: var(--text-dark);
+      font-size: 0.95rem;
+      transition: var(--transition-ease);
+      font-family: var(--font-body);
+    }
+
+    .form-input:focus {
+      border-color: var(--primary);
+      outline: none;
+      box-shadow: 0 0 0 3px var(--primary-glow);
+    }
+
+    .form-label {
+      position: absolute;
+      left: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-medium);
+      pointer-events: none;
+      transition: var(--transition-ease);
+      font-size: 0.93rem;
+      background: transparent;
+    }
+
+    .form-input:focus ~ .form-label,
+    .form-input:not(:placeholder-shown) ~ .form-label {
+      top: -10px;
+      left: 12px;
+      font-size: 0.72rem;
+      color: var(--primary);
+      background-color: var(--bg-card);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+
+    textarea.form-input {
+      min-height: 120px;
+      resize: none;
+    }
+
+    textarea.form-input ~ .form-label { top: 20px; }
+    textarea.form-input:focus ~ .form-label,
+    textarea.form-input:not(:placeholder-shown) ~ .form-label { top: -10px; }
+
+    select.form-input {
+      appearance: none;
+      cursor: pointer;
+    }
+
+    /* Success state */
+    .success-container {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .checkmark-circle {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      border: 3px solid var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 28px;
+      color: var(--primary);
+      font-size: 2rem;
+      box-shadow: 0 0 24px var(--primary-glow);
+    }
+
+    .success-container h2 {
+      font-family: var(--font-heading);
+      font-size: 2.2rem;
+      color: var(--text-dark);
+      margin-bottom: 14px;
+    }
+
+    .success-container p {
+      color: var(--text-medium);
+      font-size: 1rem;
+      max-width: 400px;
+      margin: 0 auto 28px auto;
+    }
+
+    /* Responsive */
+    @media (max-width: 992px) {
+      .volunteer-split-container { grid-template-columns: 1fr; }
+      .volunteer-visual-panel    { display: none; }
+      .volunteer-form-panel {
+        padding: 120px 8% 80px 8%;
+        border-left: none;
+        background-color: var(--bg-main);
+      }
+    }
+
+    @media (max-width: 576px) {
+      .volunteer-form-panel { padding: 100px 5% 60px 5%; }
+      .volunteer-form-panel h1 { font-size: 1.9rem; margin-bottom: 24px; }
+      .form-group { margin-bottom: 18px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Scroll Progress Bar -->
+  <div class="scroll-progress-container">
+    <div class="scroll-progress-bar"></div>
+  </div>
+
+  <!-- Custom Cursor -->
+  <div class="custom-cursor"></div>
+  <div class="custom-cursor-follower"></div>
+
+  <!-- Page Transition Wipe -->
+  <div class="page-transition-overlay"></div>
+
+  <!-- Header Navigation -->
+  <header class="main-header dark-nav">
+    <a href="index.html" class="logo">AURA<span>.</span></a>
+    
+    <nav class="nav-menu">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="programs.html">Programs</a>
+      <a href="impact.html">Impact</a>
+      <a href="blog.html">Blog</a>
+      <a href="volunteer.html" class="active">Volunteer</a>
+      <a href="donate.html">Donate</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+
+    <div class="nav-ctas">
+      <a href="donate.html" class="btn btn-outline">Donate Now</a>
+      <button class="mobile-toggle" aria-label="Toggle Navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Split Panel Container -->
+  <div class="volunteer-split-container">
+    
+    <!-- Left panel (compelling imagery) -->
+    <div class="volunteer-visual-panel">
+      <img src="https://images.unsplash.com/photo-1559027615-cd4628902d4a?auto=format&fit=crop&w=1200&q=80" alt="Team of volunteers holding hands in support">
+      
+      <div style="position: relative; z-index: 2; max-width: 440px; color: var(--text-light);" class="scroll-reveal">
+        <span style="color: var(--secondary); font-size: 0.82rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; display: block; margin-bottom: 16px;">AURA COMMONS</span>
+        <h2 style="font-family: var(--font-heading); font-size: 2.6rem; margin-bottom: 18px; line-height: 1.2;">Your hands. Our shared vision.</h2>
+        <p style="opacity: 0.85; font-size: 1rem; line-height: 1.7;">We connect skilled professionals with local communities. Whether you are an educator, forestry expert, medical nurse, or project organizer, we have a coordinate waiting for you.</p>
+      </div>
+    </div>
+
+    <!-- Right panel (interactive form) -->
+    <div class="volunteer-form-panel">
+      
+      <!-- Normal Form Container -->
+      <div class="form-content-wrap">
+        <span class="section-label scroll-reveal">JOIN THE MOVEMENT</span>
+        <h1 class="scroll-reveal">Apply to coordinate.</h1>
+
+        <form id="volunteer-form" class="stagger-group" onsubmit="handleFormSubmit(event)">
+          
+          <div class="form-group stagger-item">
+            <input type="text" class="form-input" id="v-name" placeholder=" " required>
+            <label for="v-name" class="form-label">Full Name</label>
+          </div>
+
+          <div class="form-group stagger-item">
+            <input type="email" class="form-input" id="v-email" placeholder=" " required>
+            <label for="v-email" class="form-label">Email Address</label>
+          </div>
+
+          <div class="form-group stagger-item">
+            <select class="form-input" id="v-program" required>
+              <option value="" disabled selected></option>
+              <option value="education">Universal Education</option>
+              <option value="water">Clean Water Systems</option>
+              <option value="canopy">Forestry & Canopy Growth</option>
+              <option value="medical">Mobile Clinics Care</option>
+            </select>
+            <label for="v-program" class="form-label" style="top: -10px; left: 12px; font-size: 0.72rem; color: var(--primary); background-color: var(--bg-card); padding: 2px 6px; font-weight: 600;">Primary Interest Area</label>
+          </div>
+
+          <div class="form-group stagger-item">
+            <textarea class="form-input" id="v-skills" placeholder=" " required></textarea>
+            <label for="v-skills" class="form-label">Describe your skills & background</label>
+          </div>
+
+          <button type="submit" class="btn btn-primary stagger-item" style="width: 100%; border-radius: 10px; padding: 16px; font-size: 0.95rem;">
+            Submit Application <i class="fa-solid fa-paper-plane" style="margin-left: 8px;"></i>
+          </button>
+        </form>
+      </div>
+
+      <!-- Success Thank You Container -->
+      <div class="success-container">
+        <div class="checkmark-circle">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <polyline class="success-check" points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </div>
+        <h2>Application Received!</h2>
+        <p>Thank you for stepping forward. A field coordinator will review your application and reach out within 3 business days with active openings.</p>
+        <a href="index.html" class="btn btn-outline">Back to Homepage</a>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Script Libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script>
+  <script src="main.js"></script>
+  
+  <script>
+    // Custom Form Submission Animation Sequence
+    function handleFormSubmit(e) {
+      e.preventDefault();
+      
+      const formWrap = document.querySelector(".form-content-wrap");
+      const successWrap = document.querySelector(".success-container");
+      const checkPath = document.querySelector(".success-check");
+      
+      // GSAP animate form disappearing
+      gsap.to(formWrap, {
+        opacity: 0,
+        y: -30,
+        duration: 0.5,
+        ease: "power2.in",
+        onComplete: () => {
+          formWrap.style.display = "none";
+          successWrap.style.display = "flex";
+          
+          // Animate Success Elements
+          gsap.fromTo(successWrap, 
+            { opacity: 0, y: 30 },
+            { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }
+          );
+          
+          // Draw checkmark SVG path
+          if (checkPath) {
+            const length = checkPath.getTotalLength();
+            gsap.set(checkPath, { strokeDasharray: length, strokeDashoffset: length });
+            gsap.to(checkPath, {
+              strokeDashoffset: 0,
+              duration: 0.8,
+              delay: 0.2,
+              ease: "power2.out"
+            });
+          }
+        }
+      });
+    }
+  </script>
+</body>
+</html>

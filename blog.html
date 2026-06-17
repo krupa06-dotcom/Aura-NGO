@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AURA | Stories & Field Insights</title>
+  <meta name="description" content="Read photo-narratives, field studies, and community updates straight from AURA coordinates worldwide.">
+  
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    /* Blog-specific Layouts */
+    .blog-filter-bar {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 60px;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      background: none;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      padding: 10px 24px;
+      border-radius: 30px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-dark-muted);
+      cursor: pointer;
+      transition: var(--transition-ease);
+    }
+
+    .filter-btn.active, .filter-btn:hover {
+      background-color: var(--primary);
+      border-color: var(--primary);
+      color: var(--bg-cream);
+    }
+
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .blog-card {
+      background-color: var(--bg-cream-accent);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      border-radius: 20px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transition: border-color 0.3s;
+    }
+
+    .blog-card-img {
+      width: 100%;
+      height: 240px;
+      overflow: hidden;
+      position: relative;
+      line-height: 0;
+    }
+
+    .blog-card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.8s ease;
+    }
+
+    .blog-card:hover .blog-card-img img {
+      transform: scale(1.06);
+    }
+
+    .blog-card-content {
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .blog-card-meta {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--primary);
+      letter-spacing: 1.5px;
+      margin-bottom: 12px;
+    }
+
+    .blog-card-title {
+      font-family: var(--font-heading);
+      font-size: 1.4rem;
+      line-height: 1.3;
+      margin-bottom: 14px;
+      color: var(--text-dark);
+      font-weight: 700;
+    }
+
+    .blog-card-desc {
+      font-size: 0.95rem;
+      color: var(--text-dark-muted);
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+
+    .blog-card-link {
+      margin-top: auto;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .blog-card-link:hover {
+      color: var(--primary);
+    }
+
+    @media (max-width: 992px) {
+      .blog-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+      }
+
+      .blog-filter-bar {
+        gap: 8px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .blog-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .blog-card-img {
+        height: 200px;
+      }
+
+      .blog-card-content {
+        padding: 22px;
+      }
+
+      .blog-card-title {
+        font-size: 1.2rem;
+      }
+
+      .filter-btn {
+        padding: 8px 16px;
+        font-size: 0.85rem;
+      }
+
+      /* Section padding */
+      #blog-feed {
+        padding-top: 80px !important;
+        padding-bottom: 60px !important;
+      }
+    }
+  </style>
+</head>
+<body class="light-theme">
+
+  <!-- Scroll Progress Bar -->
+  <div class="scroll-progress-container">
+    <div class="scroll-progress-bar"></div>
+  </div>
+
+  <!-- Custom Cursor -->
+  <div class="custom-cursor"></div>
+  <div class="custom-cursor-follower"></div>
+
+  <!-- Page Transition Wipe -->
+  <div class="page-transition-overlay"></div>
+
+  <!-- Header Navigation -->
+  <header class="main-header">
+    <a href="index.html" class="logo">AURA<span>.</span></a>
+    
+    <nav class="nav-menu">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="programs.html">Programs</a>
+      <a href="impact.html">Impact</a>
+      <a href="blog.html" class="active">Blog</a>
+      <a href="volunteer.html">Volunteer</a>
+      <a href="donate.html">Donate</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+
+    <div class="nav-ctas">
+      <a href="donate.html" class="btn btn-outline">Donate Now</a>
+      <button class="mobile-toggle" aria-label="Toggle Navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-wrapper" id="blog-hero">
+    <div class="floating-shapes-container">
+      <div class="floating-shape shape-1" style="background-color: var(--primary); opacity: 0.05;" data-speed="0.8"></div>
+      <div class="floating-shape shape-2" style="background-color: var(--coral); opacity: 0.05;" data-speed="1.15"></div>
+    </div>
+    
+    <div class="hero-bg-media">
+      <img src="https://images.unsplash.com/photo-1526976783813-3657cd97f48c?auto=format&fit=crop&w=1920&q=80" alt="Camera lens on a trip" style="opacity: 0.15;">
+    </div>
+
+    <div class="hero-content" style="color: var(--text-dark);">
+      <span class="hero-subtitle scroll-reveal">STORIES FROM THE FIELD</span>
+      <h1 class="hero-title split-text" style="color: var(--text-dark);">CHRONICLES OF CHANGE.</h1>
+      <p class="hero-description scroll-reveal" style="color: var(--text-dark-muted);">We record deep photographic narratives of ecological growth, community struggles, and audited developmental milestones direct from coordinates.</p>
+      <div class="hero-buttons scroll-reveal">
+        <a href="#blog-feed" class="btn btn-primary">Browse Stories <i class="fa-solid fa-arrow-down" style="margin-left: 8px;"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog Filter Feed -->
+  <section id="blog-feed" style="padding: 120px var(--container-padding); background-color: var(--bg-cream);">
+    
+    <!-- Filter Buttons -->
+    <div class="blog-filter-bar scroll-reveal">
+      <button class="filter-btn active" data-filter="all">All Stories</button>
+      <button class="filter-btn" data-filter="environment">Environment</button>
+      <button class="filter-btn" data-filter="water">Clean Water</button>
+      <button class="filter-btn" data-filter="education">Education</button>
+      <button class="filter-btn" data-filter="health">Healthcare</button>
+    </div>
+
+    <!-- Blog Grid -->
+    <div class="blog-grid stagger-group">
+      
+      <!-- Card 1 -->
+      <div class="blog-card stagger-item tilt-card" data-category="environment">
+        <div class="blog-card-img">
+          <img src="https://images.unsplash.com/photo-1489641499538-be02c22500a1?auto=format&fit=crop&w=600&q=80" alt="Forest roots growing">
+        </div>
+        <div class="blog-card-content">
+          <span class="blog-card-meta">Environment &bull; June 2026</span>
+          <h3 class="blog-card-title">The Forest That Returned</h3>
+          <p class="blog-card-desc">A detailed case study exploring how planting 120K native trees in dry areas brought groundwater table metrics back to 2012 volumes.</p>
+          <a href="#" class="blog-card-link" onclick="event.preventDefault(); alert('Narrative detail coming soon!');">Read Case Study <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="blog-card stagger-item tilt-card" data-category="health">
+        <div class="blog-card-img">
+          <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=600&q=80" alt="Mobile vaccine syringe">
+        </div>
+        <div class="blog-card-content">
+          <span class="blog-card-meta">Healthcare &bull; May 2026</span>
+          <h3 class="blog-card-title">Empowering Local Caretakers</h3>
+          <p class="blog-card-desc">Inside our community clinical strategy training mothers as local first-responders to administer vaccines and emergency health steps.</p>
+          <a href="#" class="blog-card-link" onclick="event.preventDefault(); alert('Narrative detail coming soon!');">Read Case Study <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="blog-card stagger-item tilt-card" data-category="education">
+        <div class="blog-card-img">
+          <img src="https://images.unsplash.com/photo-1509099836639-18ba1795216d?auto=format&fit=crop&w=600&q=80" alt="Kids in classroom writing">
+        </div>
+        <div class="blog-card-content">
+          <span class="blog-card-meta">Education &bull; April 2026</span>
+          <h3 class="blog-card-title">Classrooms Beyond Walls</h3>
+          <p class="blog-card-desc">How structural community-owned classrooms powered by low-footprint solar kits allowed remote zones to join standardized exams.</p>
+          <a href="#" class="blog-card-link" onclick="event.preventDefault(); alert('Narrative detail coming soon!');">Read Case Study <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="blog-card stagger-item tilt-card" data-category="water">
+        <div class="blog-card-img">
+          <img src="https://images.unsplash.com/photo-1541913079-50948cd8a0f0?auto=format&fit=crop&w=600&q=80" alt="Water pump flowing clear water">
+        </div>
+        <div class="blog-card-content">
+          <span class="blog-card-meta">Clean Water &bull; March 2026</span>
+          <h3 class="blog-card-title">The Arithmetic of Hydration</h3>
+          <p class="blog-card-desc">An assessment detailing how drilling deep water pipelines cut local waterborne illnesses down by 82% within 180 days of setup.</p>
+          <a href="#" class="blog-card-link" onclick="event.preventDefault(); alert('Narrative detail coming soon!');">Read Case Study <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <!-- Card 5 -->
+      <div class="blog-card stagger-item tilt-card" data-category="environment">
+        <div class="blog-card-img">
+          <img src="https://images.unsplash.com/photo-1530587191325-3db32d826c18?auto=format&fit=crop&w=600&q=80" alt="Young seedlings in green soil">
+        </div>
+        <div class="blog-card-content">
+          <span class="blog-card-meta">Environment &bull; Feb 2026</span>
+          <h3 class="blog-card-title">Canopy & Climate Safeguards</h3>
+          <p class="blog-card-desc">An analysis of local canopy densities mapping how shade structures buffer delicate plant seeds from scorching solar heats.</p>
+          <a href="#" class="blog-card-link" onclick="event.preventDefault(); alert('Narrative detail coming soon!');">Read Case Study <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Global CTA Section -->
+  <section class="global-cta-section" style="background-color: var(--bg-dark); color: var(--text-light);">
+    <div class="cta-card scroll-reveal">
+      <div class="cta-content">
+        <span class="cta-tag">GET INVOLVED</span>
+        <h2 class="cta-title">Be the catalyst for sustainable change.</h2>
+        <p class="cta-desc">Every donation planted, every classroom constructed, and every forest restored begins with a single step. Join us as a champion or sponsor.</p>
+      </div>
+      <div class="cta-actions">
+        <a href="volunteer.html" class="btn btn-outline">Join As Volunteer</a>
+        <a href="donate.html" class="btn btn-primary">Support Financially <i class="fa-solid fa-arrow-trend-up" style="margin-left: 8px;"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Shared Footer -->
+  <footer class="main-footer" style="background-color: var(--bg-dark); color: var(--text-light);">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">AURA<span>.</span></a>
+        <p>A premium design-driven global NGO committed to re-stabilizing environment biodiversity and community infrastructure.</p>
+        <div class="footer-socials">
+          <a href="#" class="social-icon" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" class="social-icon" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+          <a href="#" class="social-icon" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" class="social-icon" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      
+      <div class="footer-links-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="programs.html">Programs</a></li>
+          <li><a href="impact.html">Impact Details</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-links-col">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="blog.html">Blog & Stories</a></li>
+          <li><a href="volunteer.html">Volunteer Sign Up</a></li>
+          <li><a href="donate.html">Donate Tiers</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-newsletter">
+        <h4>Newsletter</h4>
+        <p>Subscribe to receive quarterly photographic narratives from our field initiatives.</p>
+        <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Thank you for subscribing!');">
+          <input type="email" placeholder="Your Email Address" required>
+          <button type="submit" aria-label="Subscribe"><i class="fa-solid fa-paper-plane"></i></button>
+        </form>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2026 AURA Global Foundation. All rights reserved. Created with absolute craftsmanship.</p>
+      <p>Terms of Use | Privacy Policy</p>
+    </div>
+  </footer>
+
+  <!-- Script Libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script>
+  <script src="main.js"></script>
+  
+  <script>
+    // Category Filtering Logic using GSAP Fades
+    document.addEventListener("DOMContentLoaded", () => {
+      const filterBtns = document.querySelectorAll(".filter-btn");
+      const blogCards = document.querySelectorAll(".blog-card");
+      
+      filterBtns.forEach(btn => {
+        btn.addEventListener("click", () => {
+          // Remove active styles
+          filterBtns.forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          
+          const filterVal = btn.getAttribute("data-filter");
+          
+          // GSAP timeline to hide and reveal filtered cards
+          const outCards = [];
+          const inCards = [];
+          
+          blogCards.forEach(card => {
+            const cat = card.getAttribute("data-category");
+            if (filterVal === "all" || cat === filterVal) {
+              inCards.push(card);
+            } else {
+              outCards.push(card);
+            }
+          });
+
+          // Animate filter changes smoothly
+          const tl = gsap.timeline();
+          
+          if (outCards.length > 0) {
+            tl.to(outCards, {
+              opacity: 0,
+              y: 20,
+              scale: 0.95,
+              duration: 0.3,
+              stagger: 0.05,
+              display: "none"
+            });
+          }
+          
+          if (inCards.length > 0) {
+            tl.set(inCards, { display: "flex" });
+            tl.to(inCards, {
+              opacity: 1,
+              y: 0,
+              scale: 1,
+              duration: 0.4,
+              stagger: 0.05,
+              ease: "power2.out"
+            }, "-=0.1");
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
