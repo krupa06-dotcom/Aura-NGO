@@ -163,6 +163,15 @@ function initMobileMenu() {
       navMenu.classList.remove("active");
     });
   });
+
+  // Close menu when close button is clicked
+  const closeBtn = navMenu.querySelector(".nav-close");
+  if (closeBtn) {
+    closeBtn.addEventListener("click", () => {
+      toggle.classList.remove("active");
+      navMenu.classList.remove("active");
+    });
+  }
 }
 
 // 6. Text Splitting Helper for Character-by-Character Entrance animations
