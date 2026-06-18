@@ -873,8 +873,8 @@ body.light-theme .footer-bottom {
   }
 
   body.light-theme nav.nav-menu {
-    background-color: var(--bg-cream-accent);
-    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
+    background-color: var(--bg-dark-accent);
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.3);
   }
 
   nav.nav-menu.active {
@@ -884,6 +884,7 @@ body.light-theme .footer-bottom {
   nav.nav-menu a {
     font-size: 1.3rem;
     opacity: 1;
+    color: var(--text-light);
   }
 
   .mobile-toggle {

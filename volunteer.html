@@ -49,13 +49,21 @@
     }
 
     .dark-nav .mobile-toggle span {
-      background-color: var(--text-light);
+      background-color: var(--text-dark);
     }
 
     .dark-nav.scrolled {
       background-color: rgba(30, 42, 56, 0.92) !important;
       backdrop-filter: blur(16px);
       border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    @media (max-width: 992px) {
+      .dark-nav nav.nav-menu a,
+      .dark-nav nav.nav-menu a:hover,
+      .dark-nav nav.nav-menu a.active {
+        color: var(--text-light) !important;
+      }
     }
 
     .volunteer-split-container {
