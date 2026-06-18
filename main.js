@@ -311,6 +311,8 @@ function initHoverTilt() {
 
 // 9. Standard scroll trigger hooks for entry animations
 function initScrollAnimations() {
+  const isMobile = window.innerWidth < 768;
+
   // Parallax elements using data-speed attribute
   if (window.innerWidth >= 992) {
     gsap.utils.toArray("[data-speed]").forEach(el => {
@@ -338,13 +340,13 @@ function initScrollAnimations() {
 
     gsap.from(items, {
       opacity: 0,
-      y: 40,
-      duration: 0.8,
-      stagger: 0.15,
+      y: isMobile ? 20 : 40,
+      duration: isMobile ? 0.5 : 0.8,
+      stagger: isMobile ? 0.1 : 0.15,
       ease: "power2.out",
       scrollTrigger: {
         trigger: group,
-        start: "top 85%",
+        start: isMobile ? "top 92%" : "top 85%",
         toggleActions: "play none none none"
       }
     });
@@ -354,12 +356,12 @@ function initScrollAnimations() {
   gsap.utils.toArray(".scroll-reveal").forEach(el => {
     gsap.from(el, {
       opacity: 0,
-      y: 30,
-      duration: 0.8,
+      y: isMobile ? 15 : 30,
+      duration: isMobile ? 0.5 : 0.8,
       ease: "power2.out",
       scrollTrigger: {
         trigger: el,
-        start: "top 85%",
+        start: isMobile ? "top 92%" : "top 85%",
         toggleActions: "play none none none"
       }
     });
