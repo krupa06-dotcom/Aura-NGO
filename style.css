@@ -215,6 +215,8 @@ header.main-header {
   justify-content: space-between;
   align-items: center;
   z-index: 1000;
+  background-color: #ffffff;
+  border-bottom: 1px solid var(--border-light);
   transition: var(--transition-ease);
 }
 
@@ -936,6 +938,10 @@ body.light-theme .footer-bottom {
     gap: 3rem !important;
   }
 
+  .narrative-two-col h2 {
+    font-size: 2.4rem !important;
+  }
+
   /* --- About: sticky collage becomes static --- */
   .pinned-collage-wrapper {
     position: static !important;
@@ -985,6 +991,14 @@ body.light-theme .footer-bottom {
   /* Index narrative section internal spacing */
   .narrative-two-col > div:first-child {
     padding-right: 0 !important;
+  }
+
+  .narrative-two-col h2 {
+    font-size: 2rem !important;
+  }
+
+  .narrative-two-col p {
+    font-size: 0.95rem !important;
   }
 }
 
@@ -1050,6 +1064,14 @@ body.light-theme .footer-bottom {
   section[style*="padding: 120px"] {
     padding-top: 100px !important;
     padding-bottom: 80px !important;
+  }
+
+  .narrative-two-col h2 {
+    font-size: 1.7rem !important;
+  }
+
+  .narrative-two-col p {
+    font-size: 0.9rem !important;
   }
 
   /* --- Donate: tier buttons grid --- */

@@ -88,12 +88,6 @@
       overflow: hidden;
       position: relative;
       line-height: 0;
-      clip-path: inset(100% 0 0 0);
-      transition: clip-path 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .program-media.revealed {
-      clip-path: inset(0 0 0 0);
     }
 
     .program-media img {
@@ -213,13 +207,12 @@
 
   <!-- Header Navigation -->
   <header class="main-header">
-    <a href="index.html" class="logo">AURA<span>.</span></a>
+    <a href="index.html" class="logo">Happy Smiles</a>
     
     <nav class="nav-menu">
       <a href="index.html">Home</a>
       <a href="about.html">About</a>
       <a href="programs.html" class="active">Programs</a>
-      <a href="impact.html">Impact</a>
       <a href="blog.html">Blog</a>
       <a href="volunteer.html">Volunteer</a>
       <a href="donate.html">Donate</a>
@@ -343,7 +336,7 @@
   <footer class="main-footer">
     <div class="footer-top">
       <div class="footer-brand">
-        <a href="index.html" class="logo">AURA<span>.</span></a>
+        <a href="index.html" class="logo">Happy Smiles</a>
         <p>A premium design-driven global NGO committed to re-stabilizing environment biodiversity and community infrastructure.</p>
         <div class="footer-socials">
           <a href="#" class="social-icon" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
@@ -359,7 +352,6 @@
           <li><a href="index.html">Home</a></li>
           <li><a href="about.html">About Us</a></li>
           <li><a href="programs.html">Programs</a></li>
-          <li><a href="impact.html">Impact Details</a></li>
         </ul>
       </div>
 
@@ -397,9 +389,7 @@
   <script src="main.js"></script>
   
   <script>
-    // Horizontal Scroll ScrollTrigger Animation
     document.addEventListener("DOMContentLoaded", () => {
-      // Run horizontal pin scroll only on desktop width devices
       if (window.innerWidth >= 992) {
         const scrollContainer = document.querySelector(".programs-scroll-container");
         const sectionsLength = scrollContainer.scrollWidth - window.innerWidth;
@@ -413,30 +403,8 @@
             scrub: 1.2,
             start: "top top",
             end: () => "+=" + sectionsLength,
-            invalidateOnRefresh: true,
-            onUpdate: (self) => {
-              // Trigger image clip-path reveals dynamically as they slide into view
-              const mediaImages = document.querySelectorAll(".program-media");
-              mediaImages.forEach(media => {
-                const rect = media.getBoundingClientRect();
-                if (rect.left < window.innerWidth * 0.85 && rect.left > 0) {
-                  media.classList.add("revealed");
-                }
-              });
-            }
+            invalidateOnRefresh: true
           }
-        });
-      } else {
-        // Fallback reveals for mobile layout where they stack vertically
-        const mediaImages = document.querySelectorAll(".program-media");
-        mediaImages.forEach(media => {
-          gsap.to(media, {
-            scrollTrigger: {
-              trigger: media,
-              start: "top 80%",
-              onEnter: () => media.classList.add("revealed")
-            }
-          });
         });
       }
     });
