@@ -253,6 +253,10 @@ nav.nav-menu {
   gap: 2rem;
 }
 
+.nav-close {
+  display: none;
+}
+
 nav.nav-menu a {
   font-weight: 500;
   font-size: 0.95rem;
@@ -852,7 +856,7 @@ section[style*="--bg-dark"] > .scroll-reveal p {
 
 .stagger-group h3,
 .stagger-group p {
-  color: var(--text-light);
+  color: var(--text-dark-muted);
 }
 
 .stagger-group p {
